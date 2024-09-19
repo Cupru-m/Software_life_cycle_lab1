@@ -334,10 +334,19 @@ class MandelbrotSetTask extends Task<Long> {
      * @return color from pre-calculated table
      */
     private Color getColor(int count) {
+         double gammaValue = 3.0;
         if (count >= colors.length) {
             return Color.BLACK;
         }
-        return colors[count];
+        Color color = colors[count];
+        return applyGamma(color, gammaValue); // gammaValue - значение гаммы
+    }
+
+    private Color applyGamma(Color color, double gamma) {
+        double r = Math.pow(color.getRed(), gamma);
+        double g = Math.pow(color.getGreen(), gamma);
+        double b = Math.pow(color.getBlue(), gamma);
+        return new Color(clamp(r), clamp(g), clamp(b), color.getOpacity());
     }
     
     /**
