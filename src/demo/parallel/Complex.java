@@ -49,6 +49,14 @@ public class Complex {
     private double re;   // действительная часть
     private double im;   // мнимая часть
 
+    public double getRe()
+    {
+        return re;
+    }
+    public double getIm()
+    {
+        return im;
+    }
     public Complex(double real, double imag) {
         re = real;
         im = imag;
