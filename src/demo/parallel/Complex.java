@@ -45,52 +45,40 @@ package demo.parallel;
  * @author Alexander Kouznetsov, Tristan Yan
  */
 public class Complex {
-    
-    private double re;   // the real part
-    private double im;   // the imaginary part
 
-    /** 
-     * create a new object with the given real and imaginary parts
-     * 
-     * @param real a complex number real part
-     * @param imag a complex number imaginary part 
-     */
+    private double re;   // действительная часть
+    private double im;   // мнимая часть
+
     public Complex(double real, double imag) {
         re = real;
         im = imag;
     }
 
-    /**
-     * Add operation.
-     * @param b summand
-     * @return this Complex object whose value is (this + b)
-     */
+    // Сложение
     public Complex plus(Complex b) {
-        re += b.re;
-        im += b.im;
-        return this;
+        return new Complex(re + b.re, im + b.im);
     }
 
-    /**
-     * Multiply operation.
-     * @param  b multiplier
-     * @return this Complex object whose value is this * b
-     */
+    // Вычитание
+    public Complex minus(Complex b) {
+        return new Complex(re - b.re, im - b.im);
+    }
+
+    // Умножение
     public Complex times(Complex b) {
-        Complex a = this;
-        double real = a.re * b.re - a.im * b.im;
-        double imag = a.re * b.im + a.im * b.re;
-        re = real;
-        im = imag;
-        return this;
+        return new Complex(re * b.re - im * b.im, re * b.im + im * b.re);
     }
 
-    /**
-     * Square of Complex object's length, we're using square of length to 
-     * eliminate the computation of square root
-     * @return square of length
-    */
+    // Квадрат длины
     public double lengthSQ() {
         return re * re + im * im;
+    }
+
+    public Complex pow(int exponent) {
+        Complex result = new Complex(1, 0);
+        for (int i = 0; i < exponent; i++) {
+            result = result.times(this);
+        }
+        return result;
     }
 }
